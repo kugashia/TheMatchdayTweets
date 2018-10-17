@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MatchDay Tweets</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./stylesheets/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div style="background-color: black" class="jumbotron text-center">
+  <!--Header Form-->
+  <h1 style="color:white">The Matchday Tweets</h1>
+  <fieldset>
+  <form action="/tweets" method="post">
+  	<input name="Team" type = 'text' class="round">
+    <button class="button_round" type="submit" style="background-color: #0084b4"><strong>Search #<strong></button>
+  </form>
+</fieldset>
+  <p style="color:white">Let the tweets kick off!</p> 
+</div>
+  <!--Tweets and Graphs-->
+<div class="container">
+  <div class="row">
+    <div style="background-color: lightgray" class="col-sm-3">
+      <h3>D3 Graphs Here</h3>
+      <p>Graph1...</p>
+      <p>Graph2...</p>
+    </div>
+    <div style="background-color: skyblue" class="col-sm-9">
+      <h3>Tweets</h3>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top" id="contact">
+    <p  style="align-self: center">Powered by <a href="https://www.linkedin.com/in/kaish-kugashia-50565161/" target="_blank" class="w3-hover-text-green">Kaish and Nick</a></p>
+  </div>
+
+</div>
+
+</body>
+</html>

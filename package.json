@@ -1,0 +1,28 @@
+{
+  "name": "assignment2",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "~1.app.js4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "natural": "^0.6.1",
+    "path": "^0.12.7",
+    "q": "^1.5.1",
+    "request": "^2.88.0",
+    "require": "^2.4.20",
+    "twit": "^2.2.11"
+  },
+  "description": "QUT, SEM 2018 ",
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "Kaish Kugashia",
+  "license": "ISC"
+}
