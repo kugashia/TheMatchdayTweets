@@ -1,60 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Matchday Tweets</title>
+  <title>MatchDay Tweets</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+  <link rel="stylesheet" href="./stylesheets/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="./javascripts/index.js"></script>
 </head>
 <body>
 
 <div style="background-color: black" class="jumbotron text-center">
+  <!--Header Form-->
   <h1 style="color:white">The Matchday Tweets</h1>
-  <form action="/tweets" method="post">
-  	<input name="Team" type = 'text' class="round">
-    <button class="button_round" type="submit" style="background-color: #0084b4"><strong>Search #<strong></button>
+  <fieldset>
+  <form style="color:white">
+    <!--<input id="input" type = 'text' class="round">
+    <input id="input2" type = 'text' class="round"> 
+    <table width="100%" class="w3-table w3-centered">
+     <tr style="text-align:left">
+      <td style="text-align:left">--> 
+    <div class="w3-row w3-container center">
+      <div style="text-align: left" class="w3-half">
+    <input type="checkbox" name="team" value="Arsenal"> Arsenal<br>
+    <input type="checkbox" name="team" value="ManUtd"> Manchester United<br>
+    <input type="checkbox" name="team" value="FulhamFC"> Fulham FC<br>
+    <input type="checkbox" name="team" value="CardiffCityFC"> Cardiff City FC<br>
+    <input type="checkbox" name="team" value="Wolves"> Wolves<br>
+    <input type="checkbox" name="team" value="NUFC"> Newcastle United FC<br>
+    <input type="checkbox" name="team" value="htafcdotcom"> Huddersfield Town<br>
+    <input type="checkbox" name="team" value="OfficialBHAFC"> Brighton & Hove Albion<br>
+    <input type="checkbox" name="team" value="BurnleyOfficial">Burnley FC<br>
+    <input type="checkbox" name="team" value="afcbournemouth"> AFC Bournemouth<br>
+     <!---</td>
+     <td>--->
+     </div>
+     <div style="text-align: left; align-self:center" class="w3-half"> 
+    <input type="checkbox" name="team" value="WatfordFC"> Watford FC<br>
+    <input type="checkbox" name="team" value="LCFC"> Leicester City<br>
+    <input type="checkbox" name="team" value="CPFC"> Crystal Palace FC<br>
+    <input type="checkbox" name="team" value="WestHamUtd"> West Ham United<br>
+    <input type="checkbox" name="team" value="SpursOfficial"> Tottenham Hotspurs<br>
+    <input type="checkbox" name="team" value="SouthamptonFC"> Southampton FC<br>
+    <input type="checkbox" name="team" value="ManCity"> Manchester City<br>
+    <input type="checkbox" name="team" value="LFC"> Liverpool FC<br>
+    <input type="checkbox" name="team" value="Everton"> Everton<br>
+    <input type="checkbox" name="team" value="ChelseaFC"> Chelsea FC<br>
+    </td>
+    </tr>
+     </div>
+    </div>
+    </table>
+    <br>
+    <button onclick="btnClicked();" type="button" style="background-color: #0084b4"><strong>Compare<strong></button>
   </form>
+</fieldset>
   <p style="color:white">Let the tweets kick off!</p> 
 </div>
-  
+  <!--Tweets and Graphs-->
 <div class="container">
   <div class="row">
     <div style="background-color: lightgray" class="col-sm-3">
-      <h3>D3 Graphs Here</h3>
-      <p>Graph1...</p>
-      <p>Graph2...</p>
+      <h3 id="Graph_head"></h3>
+      <p id="graph"></p>
     </div>
     <div style="background-color: skyblue" class="col-sm-9">
-      <div class="w3-container player_table">
-        <h2 style="color: white; text-align: center">Tweets</h2>
-      
-        <table class="table1">
-      
-          <thead>
-            
-              <tr class="w3-light-grey w3-hover-red">
-              <th style="text-align: center">User</th>
-              <th style="text-align: center">Tweet</th>
-              </tr>
-          
-          </thead>
-          
-          <%for (var result in tweet){%>
-              <tr class="w3-hover-green centre">
-                  <td style="text-align: center"><%=tweet[result].user %></td>
-                  <td style="text-align: center"><%=tweet[result].text %> <div style="background-color:skyblue" class= <%= tweet[result].class %> align = "centre"><img height= "400" width= '300'alt="Me" align = "centre" background = "grey" src=<%= tweet[result].media %>></div></td>       
-              </tr>   
-          <%}%>
-      
-        </table>
-      
-      </div>
-      
+      <table id= "tweetsTable">
+        <thead id="Tweet_Head"></thead>
+        <ul id="tweet_text" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"></ul>
+      </table>>
     </div>
   </div>
+
+  <!-- footer -->
+  <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top" id="contact">
+    <p  style="align-self: center">Powered by <a href="https://www.linkedin.com/in/kaish-kugashia-50565161/" target="_blank" class="w3-hover-text-green">Kaish and Nick</a></p>
+  </div>
+
 </div>
 
 </body>
