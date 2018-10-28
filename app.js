@@ -5,6 +5,11 @@ let q = require('q');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
+
+//DB Config
+require('./config/db');
+
 
 //var indexRouter = require('./routes/index.js');
 //var usersRouter = require('./routes/users.js');

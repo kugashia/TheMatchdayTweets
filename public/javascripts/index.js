@@ -1,16 +1,11 @@
-async function btnClicked() {
-    
-    //let input = $("#input").val();
-    //let input2 = $("#input2").val();
-    //var checked_teams = $('')
-    
+async function btnClicked() {    
     var teams= [];
     $.each($("input[name='team']:checked"),async function(){            
         teams.push($(this).val());
 
     let n;
     let t;
-    for(n = 0; n < 10; n++){
+    for(n = 0; n < 1; n++){
     $.ajax({
         type: "GET",
         url: "/tweets",
@@ -22,11 +17,12 @@ async function btnClicked() {
         success: (tweet_to_go) => {
            //("#tweetsTable").html("");
            var i;
-            $.each(tweet_to_go, function(i,tweeets){
+            $.each(tweet_to_go.tweet, function(i,tweeets){
                // var j = i+1;
-                 $('#tweet_text').append('<li>'+' '+ tweeets.text + '</li>'+'<hr>');
+                 $('#tweet_text').append('<li>'+' '+ tweeets.txt + '</li>'+'<hr>');
             })
             console.log(tweet_to_go);
+            
              
         },
         error: (err) => {
@@ -34,7 +30,7 @@ async function btnClicked() {
         }
     })
 
-    await sleep(10000);
+    await sleep(1000);
     }
 });
 //await sleep(1000);
