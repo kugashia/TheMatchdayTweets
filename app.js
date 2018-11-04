@@ -5,12 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 var mongoDB = require('./config/db')
+
 //DB Config
 require('./config/db');
 
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
-// var twitterRouter = require('./routes/twitter');
 
 mongoDB.connectToDB();
 
@@ -32,6 +30,7 @@ app.use(require('./routes/twitter').router);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
+  res.render(path.join(__dirname, '../views/error.ejs'));
 });
 
 // error handler

@@ -3,43 +3,42 @@ let i = 0;
 var teams= [];
 let datapoints = [];
 function btnClicked() {
-    
-    //let input = $("#input").val();
-    //let input2 = $("#input2").val();
-    //var checked_teams = $('')
+if($( "input:checked" ).length > 0){
+
     $('#main_cont').html('');
+    document.getElementById("CompButton").disabled = true;
+    
+    $.each($("input[name='team']:checked"), function(){            
+            teams.push($(this).val());
+            team1 = $(this).val();
+            datapoints.push({label:$(this).val(), y:0});
+        $.ajax({
+            type: "GET",
+            url: "/tweets",
+            data: {
+                teams: $(this).val(),
+                listen: true
+            },
+            success: (msg) => {
+                console.log('This is the msg.team: '+ msg.team);
+                socket.emit('listner',{myteam: msg.team});
 
-$.each($("input[name='team']:checked"), function(){            
-        teams.push($(this).val());
-        team1 = $(this).val();
-        datapoints.push({label:$(this).val(), y:0});
-    $.ajax({
-        type: "GET",
-        url: "/tweets",
-        data: {
-            teams: $(this).val(),
-            listen: true
-        },
-        success: (msg) => {
-            console.log('This is the msg.team: '+ msg.team);
-            socket.emit('listner',{myteam: msg.team});
+                console.log('Team from user side: '+ msg.team);
+                var id = msg.team;
+                i = i+1;
+               $('#main_cont').append("<div id="+id+" style=\"overflow:scroll; height:400px;\">"+ id +'</div>');
 
-            console.log('Team from user side: '+ msg.team);
-            var id = msg.team;
-            i = i+1;
-           $('#main_cont').append("<div id="+id+" style=\"overflow:scroll; height:400px;\">"+ id +'</div>');
-
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    })
-});
-
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        })
+    });
+ }
+ else{
+    alert("Please Select at least one Team");
 }
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+}
 
 function plot(tweets,dataPoints,avg_sentiment){
 
@@ -56,7 +55,11 @@ function plot(tweets,dataPoints,avg_sentiment){
         const chartContainer = document.querySelector('#chartContainer');
         const chart = new CanvasJS.Chart('chartContainer', {
                 animationEnabled: true,
+                backgroundColor: " #f2f2f2",
                 theme: 'theme1',
+                title:{
+                    text: "Fan Sentiments"
+                },
                 data:[
                     {
                         type: 'column',
@@ -70,8 +73,12 @@ function plot(tweets,dataPoints,avg_sentiment){
 socket.on('tweets', (tweets) => {
     sentiment_sum = 0;
     $.each(tweets.tweets, function(i,tweet){
-
-        $('#'+tweets.team).append('<p>'+'<font size="0">'+ tweet.text + '</font>'+'</p>'+'<hr>');
+        if(tweet.sentiment > 0.05){
+            $('#'+tweets.team).append("<p style=\" background-color: green; color: white\">"+'<font size="0">'+ tweet.text + '</font>'+'</p>'+'<hr>');
+        }
+        else{
+            $('#'+tweets.team).append("<p style=\" background-color: red; color: white\">"+'<font size="0">'+ tweet.text + '</font>'+'</p>'+'<hr>');
+        }
         sentiment_sum = sentiment_sum + tweet.sentiment;
      })
      console.log(tweets);
@@ -85,3 +92,14 @@ socket.on('tweets', (tweets) => {
 socket.on('error', () => {
     console.log('error');
 })
+
+function ClearbtnClicked() {
+    document.getElementById("CompButton").disabled = false;
+    $('#main_cont').html('');
+    $('#chartContainer').html('');
+    $('input[name="team"]').each(function() {
+        this.checked = false;
+    });
+    datapoints = [];
+    
+}

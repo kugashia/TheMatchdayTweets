@@ -4,24 +4,6 @@
   <title>MatchDay Tweets</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-      .grid-container {
-        display: grid;
-        grid-template-columns: auto auto auto;
-        grid-gap: 10px;
-        background-color: #2196F3;
-        padding: 10px;
-      }
-      .grid-container>div {
-        background-color: rgba(255, 255, 255, 0.8);
-        text-align: center;
-        padding:20px 0;
-        font-size: 30px;
-      }
-      /* .item1 {
-        grid-row: 1 / span 2;
-      } */
-      </style>
   <link rel="stylesheet" href="./stylesheets/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
@@ -29,96 +11,64 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="./javascripts/index.js"></script>
 </head>
-<body>
+<body style="background-color: black">
 
 <div style="background-color: black" class="jumbotron text-center">
   <!--Header Form-->
   <h1 style="color:white">The Matchday Tweets</h1>
-  <fieldset>
+  <h4 style="color: white">and Fan Sentiments</h3>
+<fieldset>
   <form style="color:white">
-    <!--<input id="input" type = 'text' class="round">
-    <input id="input2" type = 'text' class="round"> 
-    <table width="100%" class="w3-table w3-centered">
-     <tr style="text-align:left">
-      <td style="text-align:left">--> 
     <div class="w3-row w3-container center">
       <div style="text-align: left" class="w3-half">
-    <input type="checkbox" name="team" value="Arsenal"> Arsenal<br>
-    <input type="checkbox" name="team" value="ManUtd"> Manchester United<br>
-    <input type="checkbox" name="team" value="FulhamFC"> Fulham FC<br>
-    <input type="checkbox" name="team" value="CardiffCityFC"> Cardiff City FC<br>
-    <input type="checkbox" name="team" value="Wolves"> Wolves<br>
-    <input type="checkbox" name="team" value="NUFC"> Newcastle United FC<br>
-    <input type="checkbox" name="team" value="htafcdotcom"> Huddersfield Town<br>
-    <input type="checkbox" name="team" value="OfficialBHAFC"> Brighton & Hove Albion<br>
-    <input type="checkbox" name="team" value="BurnleyOfficial">Burnley FC<br>
-    <input type="checkbox" name="team" value="afcbournemouth"> AFC Bournemouth<br>
-     <!---</td>
-     <td>--->
+        <input type="checkbox" name="team" value="Arsenal"> Arsenal<br>
+        <input type="checkbox" name="team" value="ManUtd"> Manchester United<br>
+        <input type="checkbox" name="team" value="FulhamFC"> Fulham FC<br>
+        <input type="checkbox" name="team" value="CardiffCityFC"> Cardiff City FC<br>
+        <input type="checkbox" name="team" value="Wolves"> Wolves<br>
+        <input type="checkbox" name="team" value="NUFC"> Newcastle United FC<br>
+        <input type="checkbox" name="team" value="htafcdotcom"> Huddersfield Town<br>
+        <input type="checkbox" name="team" value="OfficialBHAFC"> Brighton & Hove Albion<br>
+        <input type="checkbox" name="team" value="BurnleyOfficial">Burnley FC<br>
+        <input type="checkbox" name="team" value="afcbournemouth"> AFC Bournemouth<br>
      </div>
      <div style="text-align: left; align-self:center" class="w3-half"> 
-    <input type="checkbox" name="team" value="WatfordFC"> Watford FC<br>
-    <input type="checkbox" name="team" value="LCFC"> Leicester City<br>
-    <input type="checkbox" name="team" value="CPFC"> Crystal Palace FC<br>
-    <input type="checkbox" name="team" value="WestHamUtd"> West Ham United<br>
-    <input type="checkbox" name="team" value="SpursOfficial"> Tottenham Hotspurs<br>
-    <input type="checkbox" name="team" value="SouthamptonFC"> Southampton FC<br>
-    <input type="checkbox" name="team" value="ManCity"> Manchester City<br>
-    <input type="checkbox" name="team" value="LFC"> Liverpool FC<br>
-    <input type="checkbox" name="team" value="Everton"> Everton<br>
-    <input type="checkbox" name="team" value="ChelseaFC"> Chelsea FC<br>
-    </td>
-    </tr>
+        <input type="checkbox" name="team" value="WatfordFC"> Watford FC<br>
+        <input type="checkbox" name="team" value="LCFC"> Leicester City<br>
+        <input type="checkbox" name="team" value="CPFC"> Crystal Palace FC<br>
+        <input type="checkbox" name="team" value="WestHamUtd"> West Ham United<br>
+        <input type="checkbox" name="team" value="SpursOfficial"> Tottenham Hotspurs<br>
+        <input type="checkbox" name="team" value="SouthamptonFC"> Southampton FC<br>
+        <input type="checkbox" name="team" value="ManCity"> Manchester City<br>
+        <input type="checkbox" name="team" value="LFC"> Liverpool FC<br>
+        <input type="checkbox" name="team" value="Everton"> Everton<br>
+        <input type="checkbox" name="team" value="ChelseaFC"> Chelsea FC<br>
      </div>
     </div>
-    </table>
     <br>
-    <button onclick="btnClicked();" type="button" style="background-color: #0084b4"><strong>Compare<strong></button>
+    <button id="CompButton" onclick="btnClicked();" type="button" style="background-color: #0084b4" class="sub_button btn"><strong>Compare<strong></button>
+    <button onclick="ClearbtnClicked();" type="button" style="background-color: red" class="sub_button"><strong>Clear<strong></button>
   </form>
 </fieldset>
   <p style="color:white">Let the tweets kick off!</p> 
 </div>
-  <!--Tweets and Graphs-->
-  
-  <div id="chartContainer" style="height: 300px;width:100%"></div>
-  <div id="main_cont" class="grid-container">
-    <!-- <div class="item1">1</div>
-    <div class="item2">2</div>
-    <div class="item3">3</div>  
-    <div class="item4">4</div>
-    <div class="item5">5</div>
-    <div class="item6">6</div>
-    <div class="item7">7</div>
-    <div class="item7">7</div>
-    <div class="item7">7</div> -->
-  </div>
-  
-  <!--
-<div class="container">
-  <div class="row">
-    <div style="background-color: lightgray" class="col-sm-3">
-      <h3 id="Graph_head"></h3>
-      <p id="graph"></p>
-    </div>
-    <div style="background-color: skyblue" class="col-sm-9">
-      <table id= "tweetsTable">
-        <thead id="Tweet_Head"><tr id="tr11"></tr></thead>
-        <p id="tr"></p>
-        <ul id="tweet_text" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"></ul>
-      </table>>
-    </div>
-  </div>
-  -->
-  <!-- footer -->
-  <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top" id="contact">
-    <p  style="align-self: center">Powered by <a href="https://www.linkedin.com/in/kaish-kugashia-50565161/" target="_blank" class="w3-hover-text-green">Kaish and Nick</a></p>
-  </div>
 
+<!--Graphs-->
+<div id="chartContainer" style="height: 300px;width:100%"></div>
+<br><br>
+<!--Tweets-->
+<div id="main_cont" class="grid-container"></div>
+ 
+<!-- footer -->
+<div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top" id="contact">
+    <p  style="align-self: center">Powered by <a href="https://www.linkedin.com/in/kaish-kugashia-50565161/" target="_blank" class="w3-hover-text-green">Kaish and Nick</a></p>
 </div>
 
+<!--Canvas Js Scripts-->
 <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/4.2.2/pusher.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+
 </body>
 </html>

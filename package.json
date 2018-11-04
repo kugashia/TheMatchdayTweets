@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./myapp/app.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -23,6 +23,7 @@
     "request": "^2.88.0",
     "require": "^2.4.20",
     "socket.io": "^2.1.1",
+    "socket.io-redis": "^5.2.0",
     "twit": "^2.2.11"
   },
   "description": "QUT, SEM 2018 ",

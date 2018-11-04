@@ -1,9 +1,18 @@
+let redis = require('socket.io-redis');
 let twitter = require('../routes/twitter');
 let ioInst;
 
 let io = (io) => {
 
+
+
+    // io.adapter(redis({ host: 'redis3-tweets.5estp9.clustercfg.apse2.cache.amazonaws.com'
+    //     , port: 6379}));
+
     ioInst = io;
+
+    // ioInst.adapter(redis({ host: 'redis3-tweets.5estp9.clustercfg.apse2.cache.amazonaws.com'
+    // , port: 6379}));
 
     io.on('connection', (socket) => {
         socket.on('listner', (data) => {

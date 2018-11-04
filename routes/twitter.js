@@ -10,13 +10,10 @@ let listen = require('../models/io').listen;
 
 const Tweets = require('../models/Tweets');
 const keys = require('../config/keys');
-const Pusher = require('pusher');
 let Analyzer = natural.SentimentAnalyzer;
 let stemmer = natural.PorterStemmer;
 var analyzer = new Analyzer("English", stemmer, "afinn");
 let tokenizer = new natural.WordTokenizer();
-//let tweet_to_go = [{}];
-
 
 let T = new Twit({
     consumer_key: 'wYQhPXqScu3tkeZckC30HeKi6',
@@ -25,23 +22,6 @@ let T = new Twit({
     access_token_secret: '1MQzrB7ripK2Ff923TdVkXQMVGE7Hujmyt53KiYce7jaa'
 });
 
-function similarity_check(tweet_to_go, tweet_text){
-
-    if(Object.keys(tweet_to_go).length >= 1){
-        var ii;
-
-        for(ii = 0; ii < Object.keys(tweet_to_go).length-1; ii++){
-            if(!tweet_to_go[ii].text.localeCompare(tweet_text)){
-                return false;
-            }
-        }
-        return true;
-    }
-    else{
-        return true;
-    }
-
-}
 
 let run_sentiment = (data) => {
     return new Promise((resolve) => {
@@ -53,7 +33,7 @@ let run_sentiment = (data) => {
             tweets.push(tweet);
         }
 
-        console.log(typeof tweets);
+        console.log("Sentimental Analysis Done!");
         resolve(tweets);
     });
 }
@@ -63,7 +43,7 @@ let run_sentiment = (data) => {
 router.get('/tweets', function(req, res, next) {
 
         var team = req.query.teams;
-        console.log('TEAMMMMM: '+team);
+        console.log('TEAM (On server side): '+team);
         let params = {
             q: '@'+team,
             count: 100,
@@ -80,7 +60,7 @@ router.get('/tweets', function(req, res, next) {
             } else {
                   
                 filter(data).then((filteredTweets) => {
-                    uploadToDB(team, filteredTweets).then(() =>  res.send({success: true, message: 'db done for'+ team,team: team}));
+                    uploadToDB(team, filteredTweets).then(() =>  res.send({success: true, message: 'database R/W done for'+ team,team: team}));
                 }).then(() => {
                     if (!(JSON.parse(req.query.listen))) {
                         listen(team);
@@ -116,7 +96,8 @@ let uploadToDB = (team, filteredTweets) => {
                 if (err) {
                     console.log(err);
                     reject(err);
-                res.status(500).end();
+                    res.status(500).end();
+                    res.render(path.join(__dirname, '../views/error.ejs'));
                 } else if (data) {
                     resolve(DB.updateOne({key: team}, {$push: {'tweets': {$each: filteredTweets}}}));
                     console.log('data for team updated');
